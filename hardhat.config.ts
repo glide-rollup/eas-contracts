@@ -42,6 +42,7 @@ interface EnvOptions {
   POLYGON_AMOY_PROVIDER_URL?: string;
   SCROLL_SEPOLIA_PROVIDER_URL?: string;
   LINEA_GOERLI_PROVIDER_URL?: string;
+  GLIDE_PROVIDER_URL?: string;
   PROFILE?: boolean;
 }
 
@@ -74,6 +75,7 @@ const {
   POLYGON_ETHERSCAN_API_KEY = '',
   SCROLL_SEPOLIA_PROVIDER_URL = '',
   LINEA_GOERLI_PROVIDER_URL = '',
+  GLIDE_PROVIDER_URL = '',
   PROFILE: isProfiling
 }: EnvOptions = process.env as any as EnvOptions;
 
@@ -277,6 +279,13 @@ const config: HardhatUserConfig = {
       verify: {
         etherscan: { apiKey: LINEA_ETHERSCAN_API_KEY }
       }
+    },
+    [DeploymentNetwork.Glide]: {
+      chainId: 901,
+      url: GLIDE_PROVIDER_URL,
+      saveDeployments: true,
+      live: true,
+      accounts: ["0x"+process.env.PRIVATE_KEY_DEPLOYER],
     }
   },
 
